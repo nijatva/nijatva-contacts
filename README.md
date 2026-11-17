@@ -12,8 +12,10 @@ A fast, private contacts app for Android with a dark interface, groups, favourit
 - **Sorting** by first or last name
 - **VCF export / import** — back up all contacts to a file, or import from one
 - **Optional Zoho sync** — sign in once (OAuth with PKCE) and your Zoho contacts are copied into the device
+- **Appearance & Developer screens** — theme, accent colour and project links
+- **Nijatva apps** — soft links to Gallery, Photos, Camera and Files
 - **Dark interface** built for one-handed use
-- Lightweight: about 40 KB APK, no third-party libraries
+- Lightweight: about 55 KB APK, no third-party libraries
 
 ## Download
 
@@ -38,6 +40,10 @@ The public source ships with placeholder Zoho credentials. To enable the feature
 3. Fill `CLIENT_ID` (and `CLIENT_SECRET` if you use one) in `ZohoConfig.java`
 
 The app uses PKCE, so an empty client secret works for mobile clients. Never publish a client secret.
+
+## The Nijatva family
+
+The app carries the shared Nijatva signature: the Appearance and Developer screens come from the same source as the other Nijatva apps. `NijatvaMediaIntents` provides soft hand-offs to the sibling apps — every call is optional, so a missing app never crashes this one.
 
 ## Permissions
 
