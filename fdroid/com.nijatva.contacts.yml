@@ -1,0 +1,28 @@
+Categories:
+  - Phone & SMS
+License: Apache-2.0
+WebSite: https://github.com/vasudev-work/nijatva-contacts
+SourceCode: https://github.com/vasudev-work/nijatva-contacts
+IssueTracker: https://github.com/vasudev-work/nijatva-contacts/issues
+
+AutoName: Nijatva Contacts
+Summary: Private contacts app with groups, favourites and VCF import/export
+Description: |-
+    Fast, private contacts app for Android with a dark interface, groups,
+    favourites, sorting and offline VCF import/export, plus an optional
+    one-tap Zoho contacts import.
+
+RepoType: git
+Repo: https://github.com/vasudev-work/nijatva-contacts.git
+
+Builds:
+  - versionName: '1.0'
+    versionCode: 1
+    commit: v1.0
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: '1.0'
+CurrentVersionCode: 1
