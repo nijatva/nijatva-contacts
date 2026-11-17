@@ -29,6 +29,9 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.List;
 
+import com.nijatva.signature.Signature;
+import com.nijatva.signature.SignatureTheme;
+
 /** Settings: Display (sort), Contacts backup (VCF export/import), Cloud sync, Permissions, Advanced. */
 public class SettingsActivity extends Activity {
 
@@ -49,6 +52,8 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
+        // This app is dark by design, so the signature screens open dark too.
+        SignatureTheme.seedDefault(this, SignatureTheme.DARK, SignatureTheme.GREEN);
         prefs = getSharedPreferences("contacts_prefs", 0);
         cloud = getSharedPreferences("contacts_cloud", 0);
         getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(BG));
@@ -164,6 +169,10 @@ public class SettingsActivity extends Activity {
         label(root, "Advanced");
         item(root, "View-only contacts from connected apps", "Show in list", false);
 
+        label(root, "Nijatva");
+        signatureRow(root, "Appearance", "Theme and accent colour", Signature.appearance(this));
+        signatureRow(root, "Developer", "About the developer", Signature.developer(this));
+
         status = new TextView(this);
         status.setTextColor(GREY);
         status.setTextSize(12);
@@ -208,6 +217,41 @@ public class SettingsActivity extends Activity {
         t.setTypeface(null, Typeface.BOLD);
         t.setPadding(dp(6), dp(14), 0, dp(6));
         parent.addView(t);
+    }
+
+    /** A tappable row that opens one of the two screens every Nijatva app carries. */
+    private void signatureRow(LinearLayout parent, String title, String subtitle,
+                              final Intent target) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(CARD);
+        bg.setCornerRadius(dp(14));
+        card.setBackground(bg);
+        card.setPadding(dp(16), dp(12), dp(16), dp(12));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+        lp.bottomMargin = dp(8);
+        card.setLayoutParams(lp);
+
+        TextView t = new TextView(this);
+        t.setText(title);
+        t.setTextColor(WHITE);
+        t.setTextSize(15);
+        card.addView(t);
+
+        TextView v = new TextView(this);
+        v.setText(subtitle);
+        v.setTextColor(GREY);
+        v.setTextSize(12);
+        v.setPadding(0, dp(2), 0, 0);
+        card.addView(v);
+
+        card.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(target);
+            }
+        });
+        parent.addView(card);
     }
 
     private TextView item(LinearLayout parent, String title, String value, boolean clickable) {
